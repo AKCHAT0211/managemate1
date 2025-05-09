@@ -1,9 +1,15 @@
 const express = require("express");
 const fs = require("fs"); // ✅ Import filesystem module
+<<<<<<< HEAD
 const { createProject, getProjects, getDetailedProjects, getProjectLeaders, updateProject, updateProjectStatus } = require("../controllers/projectController");
 const { authMiddleware } = require("../middlewares/authMiddleware");
 const multer = require("multer");
 const path = require("path"); // multiple file upload
+=======
+const { createProject, getProjects, getProjectLeaders, updateProject } = require("../controllers/projectController");
+const { authMiddleware } = require("../middlewares/authMiddleware");
+const multer = require("multer");
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
 
 const router = express.Router();
 
@@ -12,10 +18,13 @@ if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir);
 }
 
+<<<<<<< HEAD
 // multiple file upload
 // Allowed file types
 const allowedExtensions = [".txt", ".doc", ".docx", ".pdf", ".csv", ".xls", ".xlsx", ".ppt", ".pptx", ".sql", ".png", ".jpg", ".jpeg"]; 
 
+=======
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
 // Configure Multer for file uploads
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -25,6 +34,7 @@ const storage = multer.diskStorage({
         cb(null, Date.now() + "-" + file.originalname);
     },
 });
+<<<<<<< HEAD
 
 // multiple file upload
 // File filter for allowed extensions
@@ -51,6 +61,14 @@ router.get("/leaders", authMiddleware, getProjectLeaders);
 router.put("/updateProject/:id", authMiddleware, upload.array("files", 10), updateProject);
 router.put("/updateStatus/:id", authMiddleware, updateProjectStatus);
 
+=======
+const upload = multer({ storage });
+
+router.post("/createProject", authMiddleware, upload.single("file"), createProject);
+router.get("/", authMiddleware, getProjects);
+router.get("/leaders", authMiddleware, getProjectLeaders);
+router.put("/updateProject/:id", authMiddleware, updateProject);
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
 
 module.exports = router;
 

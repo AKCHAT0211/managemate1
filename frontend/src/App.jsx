@@ -1,8 +1,12 @@
 import { useState, useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom"; 
+<<<<<<< HEAD
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Layout from "./components/Layout"; 
+=======
+import Layout from "./components/Layout"; // Import Layout
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
@@ -15,6 +19,7 @@ import EditTask from "./pages/EditTask";
 import MyTasks from "./pages/MyTasks";
 import UpdateTask from "./pages/UpdateTask";
 import ViewTasks from "./pages/ViewTasks";
+<<<<<<< HEAD
 import PendingTasks from "./pages/PendingTasks";
 import CompletedTasks from "./pages/CompletedTasks";
 import Profile from "./pages/Profile";
@@ -30,6 +35,16 @@ import AdminDashboard from "./pages/AdminDashboard";
 
 function App() {
   const { user } = useAuth(); 
+=======
+import Profile from "./pages/Profile";
+import AllUsers from "./pages/AllUsers";
+import { useAuth } from "./context/AuthContext"; // Import useAuth to get user role
+import Chat from "./components/Chat";
+import MeetingList from "./pages/MeetingList";
+
+function App() {
+  const { user } = useAuth(); // Get logged-in user details
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
   const [projects, setProjects] = useState([]);
   const [tasks, setTasks] = useState([]);
 
@@ -79,6 +94,7 @@ function App() {
   };
 
   return (
+<<<<<<< HEAD
     <>
       <Routes>
         <Route path="/" element={<Login />} />
@@ -109,6 +125,29 @@ function App() {
       </Routes>
       <ToastContainer position="top-center" autoClose={3000} />
     </>
+=======
+    <Routes>
+      <Route path="/" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route element={<Layout/>}>
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/all-users" element={<AllUsers />} />
+        <Route path="/projects" element={user?.role ? <ProjectList projects={projects} /> : <Navigate to="/" />} />
+        <Route path="/add-project" element={user?.role === "Manager" ? <AddProject addProject={addProject} /> : <Navigate to="/dashboard" />} />
+        {/* <Route path="/edit-project/:id" element={user?.role === "Manager" ? <EditProject projects={projects} updateProject={updateProject} /> : <Navigate to="/dashboard" />} /> */}
+        <Route path="/edit-project/:id" element={user?.role === "Manager" ? <EditProject /> : <Navigate to="/dashboard" />} />
+        <Route path="/add-task/:projectId" element={user?.role === "Project Leader" ? <AddTask addTask={addTask} /> : <Navigate to="/dashboard" />} />
+        <Route path="/tasks/:projectId" element={user?.role ? <TaskList deleteTask={deleteTask} /> : <Navigate to="/" />} />
+        <Route path="/view-tasks" element={<ViewTasks />} />
+        <Route path="/my-tasks" element = {< MyTasks />}/>
+        <Route path="update-task/:taskId" element= {<UpdateTask />}/>
+        <Route path="/edit-task/:taskId" element={user?.role === "Project Leader" || user?.role === "Team Member" ? <EditTask tasks={tasks} updateTask={updateTask} /> : <Navigate to="/dashboard" />} />
+        <Route path="/chat" element={<Chat />} />
+        <Route path="/meetings" element={<MeetingList />} />
+      </Route>
+    </Routes>
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
   );
 }
 

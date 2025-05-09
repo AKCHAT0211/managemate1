@@ -1,6 +1,9 @@
 const Project = require("../models/Project");
 const User = require("../models/User");
+<<<<<<< HEAD
 const Task = require("../models/Task");
+=======
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
 
 const createProject = async (req, res) => {
     try {
@@ -10,9 +13,13 @@ const createProject = async (req, res) => {
 
         const { name, description, projectLeader, deadline } = req.body;
         const formattedDeadline = new Date(deadline);
+<<<<<<< HEAD
 
         // multiple file upload
         const fileUrls = req.files ? req.files.map(file => `/uploads/${file.filename}`) : [];
+=======
+        const fileUrl = req.file ? `/uploads/${req.file.filename}` : null;
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
 
         const project = new Project({
             name,
@@ -20,7 +27,11 @@ const createProject = async (req, res) => {
             managerId: req.user.id,
             projectLeader,
             deadline: formattedDeadline,
+<<<<<<< HEAD
             files: fileUrls, // multiple file upload
+=======
+            file: fileUrl,
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
         });
 
         await project.save();
@@ -37,11 +48,19 @@ const getProjects = async (req, res) => {
         if (req.user.role === "Manager") {
             projects = await Project.find({ managerId: req.user.id })
                 .populate("projectLeader", "name _id")
+<<<<<<< HEAD
                 .select("name description projectLeader deadline files status"); 
         } else if (req.user.role === "Project Leader") {
             projects = await Project.find({ projectLeader: req.user.id })
                 .populate("managerId projectLeader", "name _id")
                 .select("name description projectLeader deadline files status"); 
+=======
+                .select("name description projectLeader deadline file status"); // ✅ Include "file"
+        } else if (req.user.role === "Project Leader") {
+            projects = await Project.find({ projectLeader: req.user.id })
+                .populate("managerId projectLeader", "name _id")
+                .select("name description projectLeader deadline file status"); // ✅ Include "file"
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
         } else {
             return res.status(403).json({ message: "Access Denied" });
         }
@@ -52,6 +71,7 @@ const getProjects = async (req, res) => {
     }
 };
 
+<<<<<<< HEAD
 const getDetailedProjects = async (req, res) => {
     try{
         if (req.user.role === "Team Member") {
@@ -74,6 +94,8 @@ const getDetailedProjects = async (req, res) => {
     }
 }
 
+=======
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
 
 const getProjectLeaders = async (req, res) => {
     try {
@@ -88,11 +110,15 @@ const getProjectLeaders = async (req, res) => {
     }
 };
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
 const updateProject = async (req, res) => {
     try {
         const { id } = req.params;
         const { name, description, projectLeader, deadline } = req.body;
+<<<<<<< HEAD
 
         // Find existing project
         const existingProject = await Project.findById(id);
@@ -116,12 +142,23 @@ const updateProject = async (req, res) => {
             { new: true }
         );
 
+=======
+        const updatedProject = await Project.findByIdAndUpdate(
+            id,
+            { name, description, projectLeader, deadline },
+            { new: true }
+        );
+        if (!updatedProject) {
+            return res.status(404).json({ message: "Project not found" });
+        }
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
         res.json(updatedProject);
     } catch (err) {
         res.status(500).json({ message: "Server Error", err });
     }
 };
 
+<<<<<<< HEAD
 const updateProjectStatus = async (req, res) => {
     try {
       const { id } = req.params;
@@ -151,3 +188,7 @@ const updateProjectStatus = async (req, res) => {
   
 
 module.exports = { createProject, getProjects, getDetailedProjects, getProjectLeaders, updateProject, updateProjectStatus };
+=======
+
+module.exports = { createProject, getProjects, getProjectLeaders, updateProject };
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee

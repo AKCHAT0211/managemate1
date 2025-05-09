@@ -182,6 +182,7 @@ export const TaskProvider = ({children}) => {
         }
     }
 
+<<<<<<< HEAD
     const submitTask = async (taskId) => {
         try {
           const response = await fetch(`${taskAPI}/submit/${taskId}`, {
@@ -231,6 +232,15 @@ export const TaskProvider = ({children}) => {
 
     return( // loading update
         <TaskContext.Provider value={{members, loadingMembers, tasks, tasksByProject, projectName, fetchTasks, fetchTasksByProject, createTask, fetchProjectName, updateTask, submitTask}}>
+=======
+    useEffect(() => {
+        fetchMembers();
+        fetchTasks();
+    }, []);
+
+    return( // loading update
+        <TaskContext.Provider value={{members, loadingMembers, tasks, tasksByProject, projectName, fetchTasks, fetchTasksByProject, createTask, fetchProjectName, updateTask}}>
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
             {children}
         </TaskContext.Provider>
     );

@@ -19,11 +19,14 @@ const createTask = async (req, res) => {
         const task = new Task({title, description, projectId, assignedTo, deadline});
 
         await task.save();
+<<<<<<< HEAD
 
         await Project.findByIdAndUpdate(projectId, {
             $push: { tasks: task._id }
         });
         
+=======
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
         res.status(201).json({message: "Task created successfully", task});
     }
     catch(err){

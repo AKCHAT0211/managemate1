@@ -1,12 +1,16 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+<<<<<<< HEAD
 import { useTheme } from "../context/ThemeContext";
+=======
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
 
 const Profile = () => {
   const { profile, updateProfile } = useAuth();
   const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
+<<<<<<< HEAD
   const [formData, setFormData] = useState({ name: "", password: "", profilePicture: null });
   const [message, setMessage] = useState("");
   const { darkMode } = useTheme();
@@ -14,6 +18,13 @@ const Profile = () => {
   const handleFileChange = (e) => {
     setFormData({ ...formData, profilePicture: e.target.files[0] });
   };
+=======
+  const [formData, setFormData] = useState({
+    name: "",
+    password: "",
+  });
+  const [message, setMessage] = useState("");
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -23,6 +34,7 @@ const Profile = () => {
     e.preventDefault();
     setMessage("");
 
+<<<<<<< HEAD
     if (!formData.name && !formData.password && !formData.profilePicture) {
       setMessage("Please provide at least one field to update.");
       return;
@@ -30,6 +42,14 @@ const Profile = () => {
 
     try {
       const response = await updateProfile(formData);
+=======
+    const formDataToSend = new FormData();
+    if (formData.name) formDataToSend.append("name", formData.name);
+    if (formData.password) formDataToSend.append("password", formData.password);
+
+    try {
+      const response = await updateProfile(formDataToSend);
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
       if (response.success) {
         setMessage("Profile updated successfully.");
         setTimeout(() => {
@@ -40,11 +60,16 @@ const Profile = () => {
         setMessage(response.message || "Failed to update profile.");
       }
     } catch (error) {
+<<<<<<< HEAD
       setMessage("Error updating profile.");
+=======
+      setMessage("Error updating profile: " + error.message); // Corrected the error handling
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
     }
   };
 
   return (
+<<<<<<< HEAD
     <div className={`flex flex-col items-center justify-center h-screen ${darkMode ? "bg-gray-800 text-white" : "bg-gray-100 text-gray-900"}`}>
       <div className={`shadow-lg rounded-lg p-8 w-96 ${darkMode ? "bg-gray-700" : "bg-white"}`}>
         <h2 className="text-2xl font-bold mb-4 text-center">Profile</h2>
@@ -60,6 +85,17 @@ const Profile = () => {
                 />
               </div>
             )}
+=======
+    <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
+      <div className="bg-white shadow-lg rounded-lg p-8 w-96">
+        <h2 className="text-2xl font-bold text-gray-900 mb-4 text-center">
+          Profile
+        </h2>
+
+        {profile ? (
+          <div className="text-gray-800 text-center">
+            {/* Remove Profile Picture Section */}
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
             <p className="mb-2">
               <span className="font-semibold">Name:</span> {profile.name}
             </p>
@@ -94,32 +130,58 @@ const Profile = () => {
 
       {isEditing && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+<<<<<<< HEAD
           <div className={`shadow-lg rounded-lg p-6 w-96 ${darkMode ? "bg-gray-700 text-white" : "bg-white text-gray-900"}`}>
+=======
+          <div className="bg-white shadow-lg rounded-lg p-6 w-96">
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
             <h3 className="text-xl font-bold mb-4">Edit Profile</h3>
 
             {message && <p className="text-red-500 text-sm">{message}</p>}
 
+<<<<<<< HEAD
             <form onSubmit={handleUpdate}>
               <div className="mb-3">
                 <label htmlFor="name" className="block text-sm font-medium">New Name:</label>
+=======
+            <form onSubmit={handleUpdate} encType="multipart/form-data">
+              <div className="mb-3">
+                <label htmlFor="name" className="block text-sm font-medium">
+                  New Name:
+                </label>
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
                 <input
                   type="text"
                   id="name"
                   name="name"
+<<<<<<< HEAD
                   autoComplete="name"
                   placeholder="Enter new name"
                   value={formData.name}
                   onChange={handleChange}
                   className={`w-full px-3 py-2 border rounded-lg ${darkMode ? "bg-gray-600 border-gray-500 text-white" : ""}`}
+=======
+                  placeholder="Enter new name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  className="w-full px-3 py-2 border rounded-lg"
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
                 />
               </div>
 
               <div className="mb-3">
+<<<<<<< HEAD
                 <label htmlFor="password" className="block text-sm font-medium">New Password:</label>
+=======
+                <label htmlFor="password" className="block text-sm font-medium">
+                  New Password:
+                </label>
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
                 <input
                   type="password"
                   id="password"
                   name="password"
+<<<<<<< HEAD
                   autoComplete="new-password"
                   placeholder="Enter new password"
                   value={formData.password}
@@ -150,6 +212,12 @@ const Profile = () => {
                   accept="image/*"
                   onChange={handleFileChange}
                   className={`w-full px-3 py-2 border rounded-lg ${darkMode ? "bg-gray-600 border-gray-500 text-white" : ""}`}
+=======
+                  placeholder="Enter new password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  className="w-full px-3 py-2 border rounded-lg"
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
                 />
               </div>
 

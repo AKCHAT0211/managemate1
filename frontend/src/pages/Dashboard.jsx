@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+<<<<<<< HEAD
 import {
   ClipboardList,
   Briefcase,
@@ -9,6 +10,9 @@ import {
   CircleDashed,
   CircleCheck,
 } from "lucide-react";
+=======
+import { ClipboardList, Briefcase, CheckCircle, Hourglass } from "lucide-react";
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
 import { useTheme } from "../context/ThemeContext";
 import axios from "axios";
 import { Bar, Pie } from "react-chartjs-2";
@@ -44,9 +48,12 @@ const Dashboard = () => {
     completedTasks: 0,
     assignedProjects: 0,
     assignedTasks: 0,
+<<<<<<< HEAD
     projectsInProgress: 0,
     projectsNotStarted: 0,
     projectsCompleted: 0,
+=======
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -55,6 +62,10 @@ const Dashboard = () => {
     const fetchStats = async () => {
       try {
         const token = localStorage.getItem("token");
+<<<<<<< HEAD
+=======
+        // console.log("Token sent:", token); // Debug log
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
         if (!token) throw new Error("No token found");
 
         const response = await axios.get(
@@ -63,6 +74,10 @@ const Dashboard = () => {
             headers: { Authorization: `Bearer ${token}` },
           }
         );
+<<<<<<< HEAD
+=======
+        // console.log("Response data:", response.data); // Debug log
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
         setStats(response.data);
       } catch (error) {
         console.error("Error fetching stats:", error);
@@ -87,6 +102,7 @@ const Dashboard = () => {
         label: "Total Tasks",
         value: stats.totalTasks,
         icon: <ClipboardList size={28} />,
+<<<<<<< HEAD
       },
       {
         label: "Projects In Progress",
@@ -102,6 +118,9 @@ const Dashboard = () => {
         label: "Projects Completed",
         value: stats.projectsCompleted,
         icon: <CircleCheck size={28} />,
+=======
+        link: "/tasks",
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
       },
     ],
     "Project Leader": [
@@ -111,6 +130,7 @@ const Dashboard = () => {
         icon: <Briefcase size={28} />,
         link: "/projects",
       },
+<<<<<<< HEAD
       {
         label: "Projects In Progress",
         value: stats.projectsInProgress,
@@ -126,6 +146,8 @@ const Dashboard = () => {
         value: stats.projectsCompleted,
         icon: <CircleCheck size={28} />,
       },
+=======
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
     ],
     "Team Member": [
       {
@@ -149,6 +171,7 @@ const Dashboard = () => {
     ],
   };
 
+<<<<<<< HEAD
   let barData;
 
   if (user?.role === "Manager") {
@@ -210,6 +233,27 @@ const Dashboard = () => {
         },
       },
     },
+=======
+  const barData = {
+    labels: [
+      "Total Projects",
+      "Total Tasks",
+      "Pending Tasks",
+      "Completed Tasks",
+    ],
+    datasets: [
+      {
+        label: "Tasks & Projects",
+        data: [
+          stats.totalProjects,
+          stats.totalTasks,
+          stats.pendingTasks,
+          stats.completedTasks,
+        ],
+        backgroundColor: ["#36a2eb", "#ff6384", "#ffce56", "#4bc0c0"],
+      },
+    ],
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
   };
 
   const pieData = {
@@ -228,6 +272,7 @@ const Dashboard = () => {
         darkMode ? "bg-gray-900 text-white" : "bg-gray-100 text-black"
       }`}
     >
+<<<<<<< HEAD
       <h1
         className={`text-4xl font-bold mb-4 ${
           darkMode ? "text-white" : "text-gray-900"
@@ -240,6 +285,12 @@ const Dashboard = () => {
       >
         Role: {user?.role}
       </p>
+=======
+      <h1 className="text-4xl font-bold mb-4 text-gray-900">
+        Welcome {user?.name}
+      </h1>
+      <p className="text-xl mb-4 text-gray-700">Role: {user?.role}</p>
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
 
       {user?.role === "Manager" && (
         <div className="bg-blue-800 text-white p-6 rounded-lg shadow-lg w-3/4 text-center mb-6">
@@ -283,6 +334,7 @@ const Dashboard = () => {
                   {stat.icon}
                 </div>
                 <div>
+<<<<<<< HEAD
                   <p
                     className={`text-sm ${
                       darkMode ? "text-white" : "text-gray-500"
@@ -290,6 +342,9 @@ const Dashboard = () => {
                   >
                     {stat.label}
                   </p>
+=======
+                  <p className="text-gray-500 text-sm">{stat.label}</p>
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
                   <h2 className="text-2xl font-bold">{stat.value}</h2>
                 </div>
               </div>
@@ -297,6 +352,7 @@ const Dashboard = () => {
           ))}
         </div>
       )}
+<<<<<<< HEAD
       <div className="w-full mt-8">
         <div className="flex justify-center">
           <h2
@@ -333,6 +389,26 @@ const Dashboard = () => {
               <Pie data={pieData} />
             </div>
           )}
+=======
+
+      <div className="w-full mt-8">
+        <div className="flex justify-center">
+          <h2 className="text-3xl font-bold mb-4 text-gray-900">
+            Analytical Charts
+          </h2>
+        </div>
+        <div className="flex flex-col md:flex-row justify-center items-center gap-6">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-3xl">
+            <h3 className="text-2xl font-semibold mb-4">
+              Tasks & Projects Overview
+            </h3>
+            <Bar data={barData} />
+          </div>
+          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm">
+            <h3 className="text-2xl font-semibold mb-4">Task Distribution</h3>
+            <Pie data={pieData} />
+          </div>
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
         </div>
       </div>
     </div>

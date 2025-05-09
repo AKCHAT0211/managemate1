@@ -8,13 +8,18 @@ const AddProject = () => {
   const [description, setDescription] = useState("");
   const [deadline, setDeadline] = useState("");
   const [selectedLeader, setSelectedLeader] = useState("");
+<<<<<<< HEAD
   const [files, setFiles] = useState([]); // multiple file upload
+=======
+  const [file, setFile] = useState(null);
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
   const [success, setSuccess] = useState(false);
 
   const { leaders, createProject, loadingLeaders } = useProject();
   const { darkMode } = useTheme();
   const navigate = useNavigate();
 
+<<<<<<< HEAD
   // multiple file upload
   const allowedFileTypes = [
     "text/plain",
@@ -48,6 +53,8 @@ const AddProject = () => {
     setFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
   };
 
+=======
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -61,6 +68,7 @@ const AddProject = () => {
     formData.append("description", description || "");
     formData.append("projectLeader", selectedLeader);
     formData.append("deadline", deadline);
+<<<<<<< HEAD
     // if (file) formData.append("file", file);
 
     // multiple file upload
@@ -68,6 +76,12 @@ const AddProject = () => {
 
     const success = await createProject(formData);
     if (success) {
+=======
+    if (file) formData.append("file", file);
+
+    const isSuccess = await createProject(formData);
+    if (isSuccess) {
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
       setSuccess(true);
       setTimeout(() => {
         setSuccess(false);
@@ -134,11 +148,15 @@ const AddProject = () => {
             >
               <option value="">Select Leader</option>
               {leaders.map((leader) => (
+<<<<<<< HEAD
                 <option
                   key={leader._id}
                   value={leader._id}
                   className={darkMode ? "text-black" : "text-black"}
                 >
+=======
+                <option key={leader._id} value={leader._id}>
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
                   {leader.name}
                 </option>
               ))}
@@ -147,6 +165,7 @@ const AddProject = () => {
         </div>
 
         <div className="mb-4">
+<<<<<<< HEAD
           <label className="block text-sm font-medium">Upload Files</label>
 
           {/* Upload File Button (Only shown when no file is selected) */}
@@ -198,10 +217,23 @@ const AddProject = () => {
               />
             </label>
           )}
+=======
+          <label className="block text-sm font-medium">Upload File</label>
+          <input
+            type="file"
+            className={`w-full p-2 border rounded bg-transparent outline-none transition-colors ${
+              darkMode
+                ? "border-gray-700 text-white"
+                : "border-gray-300 text-black"
+            }`}
+            onChange={(e) => setFile(e.target.files[0])}
+          />
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
         </div>
 
         <div className="mb-4">
           <label className="block text-sm font-medium">Deadline</label>
+<<<<<<< HEAD
           {/* <input
             type="date"
             className={`w-full p-2 border rounded bg-transparent outline-none transition-colors ${
@@ -211,6 +243,8 @@ const AddProject = () => {
             onChange={(e) => setDeadline(e.target.value)}
             required
           /> */}
+=======
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
           <input
             type="date"
             className={`w-full p-2 border rounded bg-transparent outline-none transition-colors ${
@@ -220,7 +254,10 @@ const AddProject = () => {
             }`}
             value={deadline}
             onChange={(e) => setDeadline(e.target.value)}
+<<<<<<< HEAD
             min={new Date().toISOString().split("T")[0]} // 👈 Restricts to today or later
+=======
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
             required
           />
         </div>

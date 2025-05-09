@@ -2,9 +2,12 @@ import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
 import logo from "../assets/clogo.png";
+<<<<<<< HEAD
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
+=======
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
 
 const Register = () => {
   const { register } = useAuth();
@@ -17,9 +20,14 @@ const Register = () => {
     role: "Manager",
   });
 
+<<<<<<< HEAD
   const [selectedImage, setSelectedImage] = useState(null);
   const [profilePicture, setProfilePicture] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
+=======
+  const [error, setError] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -27,6 +35,7 @@ const Register = () => {
 
   const validateForm = () => {
     const { name, email, password } = formData;
+<<<<<<< HEAD
 
     if (!name.trim()) return "Full Name is required.";
 
@@ -50,16 +59,40 @@ const Register = () => {
       /^(?=.*[0-9])(?=.*[!@#$%^&])[a-zA-Z0-9!@#$%^&]{8,15}$/;
     if (!passwordRegex.test(password))
       return "Password must be 8-15 characters long, with at least one number and one special character.";
+=======
+    if (!name.trim()) return "Full Name is required.";
+    if (name.length > 15) return "Full Name cannot exceed 15 characters.";
+
+    const emailRegex =
+      /^[a-zA-Z0-9._%+-]+@(gmail\.com|yahoo\.com|outlook\.com|protonmail\.com|hotmail\.com)$/;
+    if (!email.trim()) return "Email is required.";
+    if (!emailRegex.test(email))
+      return "Please enter a valid email (Gmail, Yahoo, Outlook, etc.).";
+
+    const passwordRegex =
+      /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,15}$/;
+    if (!password) return "Password is required.";
+    if (!passwordRegex.test(password))
+      return "Password must be 6-15 characters long, with at least one number and one special character.";
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
 
     return "";
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+<<<<<<< HEAD
 
     const validationError = validateForm();
     if (validationError) {
       toast.error(validationError);
+=======
+    setError("");
+
+    const validationError = validateForm();
+    if (validationError) {
+      setError(validationError);
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
       return;
     }
 
@@ -67,6 +100,7 @@ const Register = () => {
       formData.name,
       formData.email,
       formData.password,
+<<<<<<< HEAD
       formData.role,
       profilePicture
     );
@@ -77,6 +111,17 @@ const Register = () => {
       toast.success("Registration Successful! Redirecting...");
       setTimeout(() => {
         navigate("/");
+=======
+      formData.role
+    );
+    if (!success) {
+      setError("Registration failed! Try again.");
+    } else {
+      setShowPopup(true);
+      setTimeout(() => {
+        setShowPopup(false);
+        navigate("/"); // Redirect after successful registration
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
       }, 3000);
     }
   };
@@ -88,6 +133,7 @@ const Register = () => {
       password: "",
       role: "Manager",
     });
+<<<<<<< HEAD
     setSelectedImage(null);
     setProfilePicture(null);
   };
@@ -108,11 +154,36 @@ const Register = () => {
           <img src={logo} alt="Logo" className="w-3/4" />
         </div>
 
+=======
+    setError("");
+  };
+
+  return (
+    <div className="flex justify-center items-center h-screen bg-gray-200">
+      <div className="bg-blue-300 bg-opacity-50 p-10 rounded-3xl shadow-2xl w-full max-w-4xl border border-gray-700 flex">
+        <div className="hidden md:flex md:w-1/2 justify-center items-center">
+          <img src={logo} alt="Logo" className="w-3/4" />
+        </div>
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
         <div className="w-full md:w-1/2 flex flex-col items-center">
           <h1 className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 text-center mb-6">
             Create Account
           </h1>
 
+<<<<<<< HEAD
+=======
+          {error && (
+            <p className="text-red-500 text-sm text-center bg-red-900 p-2 rounded-lg">
+              {error}
+            </p>
+          )}
+          {showPopup && (
+            <div className="fixed top-10 right-10 bg-green-500 text-white py-2 px-4 rounded-lg shadow-lg">
+              Registration Successful!..
+            </div>
+          )}
+
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
           <form onSubmit={handleSubmit} className="flex flex-col w-full">
             <input
               type="text"
@@ -120,13 +191,18 @@ const Register = () => {
               placeholder="Full Name"
               value={formData.name}
               onChange={handleChange}
+<<<<<<< HEAD
               minLength="5"
               maxLength="25"
+=======
+              maxLength="15"
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
               className="mb-4 p-3 rounded-xl bg-gray-700 text-white outline-none focus:ring-2 focus:ring-blue-400"
             />
             <input
               type="email"
               name="email"
+<<<<<<< HEAD
               placeholder="Email"
               value={formData.email}
               onChange={handleChange}
@@ -159,6 +235,22 @@ const Register = () => {
               </button>
             </div>
 
+=======
+              placeholder="Email (Only Gmail, Yahoo, Outlook)"
+              value={formData.email}
+              onChange={handleChange}
+              className="mb-4 p-3 rounded-xl bg-gray-700 text-white outline-none focus:ring-2 focus:ring-blue-400"
+            />
+            <input
+              type="password"
+              name="password"
+              placeholder="Password (6-15 characters)"
+              value={formData.password}
+              onChange={handleChange}
+              maxLength="15"
+              className="mb-4 p-3 rounded-xl bg-gray-700 text-white outline-none focus:ring-2 focus:ring-blue-400"
+            />
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
             <select
               name="role"
               value={formData.role}
@@ -170,6 +262,7 @@ const Register = () => {
               <option value="Team Member">Team Member</option>
             </select>
 
+<<<<<<< HEAD
             {/* Profile Image Upload Section */}
             <div className="flex flex-col items-center mb-6">
               <label className="cursor-pointer flex flex-col items-center justify-center w-full p-4 rounded-xl bg-gray-700 text-white hover:bg-gray-600">
@@ -194,6 +287,8 @@ const Register = () => {
             </div>
 
             {/* Buttons */}
+=======
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
             <div className="flex justify-between gap-4">
               <button
                 type="submit"
@@ -219,8 +314,11 @@ const Register = () => {
           </p>
         </div>
       </div>
+<<<<<<< HEAD
 
       <ToastContainer position="top-center" autoClose={3000} />
+=======
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
     </div>
   );
 };

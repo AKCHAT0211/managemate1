@@ -2,12 +2,17 @@ const express = require("express");
 const Project = require("../models/Project");
 const Task = require("../models/Task");
 const router = express.Router();
+<<<<<<< HEAD
 const { authMiddleware } = require("../middlewares/authMiddleware");
+=======
+const {authMiddleware} = require("../middlewares/authMiddleware");
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
 
 router.get("/stats", authMiddleware, async (req, res) => {
   try {
     const user = req.user;
 
+<<<<<<< HEAD
     let totalProjects = 0;
     let totalTasks = 0;
     let pendingTasks = 0;
@@ -45,6 +50,21 @@ router.get("/stats", authMiddleware, async (req, res) => {
       assignedTasks = await Task.countDocuments({ assignedTo: user._id });
       pendingTasks = await Task.countDocuments({ assignedTo: user.id, status: { $ne: "Completed" } });
       completedTasks = await Task.countDocuments({ assignedTo: user.id, status: "Completed" });
+=======
+    const totalProjects = await Project.countDocuments();
+    const totalTasks = await Task.countDocuments();
+    const pendingTasks = await Task.countDocuments({ assignedTo: user.id, status: {$ne: "Completed"}});
+    const completedTasks = await Task.countDocuments({ assignedTo: user.id, status: "Completed"});
+
+    let assignedProjects = 0;
+    let assignedTasks = 0;
+
+    if (user.role === "Project Leader") {
+      assignedProjects = await Project.countDocuments({ projectLeader: user._id });
+      assignedTasks = await Task.countDocuments({ assignedTo: user._id });
+    } else if (user.role === "Team Member") {
+      assignedTasks = await Task.countDocuments({ assignedTo: user._id });
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
     }
 
     res.json({
@@ -54,9 +74,12 @@ router.get("/stats", authMiddleware, async (req, res) => {
       completedTasks,
       assignedProjects,
       assignedTasks,
+<<<<<<< HEAD
       projectsNotStarted,
       projectsInProgress,
       projectsCompleted
+=======
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
     });
   } catch (error) {
     console.error("Error fetching stats:", error);

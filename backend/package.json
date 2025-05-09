@@ -13,6 +13,10 @@
     "axios": "^1.8.2",
     "bcryptjs": "^3.0.2",
     "body-parser": "^1.20.3",
+<<<<<<< HEAD
+=======
+    "cloudinary": "^1.41.3",
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
@@ -20,6 +24,10 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.12.1",
     "multer": "^1.4.5-lts.1",
+<<<<<<< HEAD
+=======
+    "multer-storage-cloudinary": "^4.0.0",
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
     "socket.io": "^4.8.1"
   },
   "devDependencies": {

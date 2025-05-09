@@ -1,4 +1,8 @@
 import { useEffect, useState, useRef } from "react";
+<<<<<<< HEAD
+=======
+//import { io } from "socket.io-client";
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
 import socket from "../components/Socket";
 import { useProject } from "../context/ProjectContext";
 import moment from "moment"; // ✅ Import Moment.js for timestamps
@@ -140,7 +144,11 @@ const Chat = () => {
                   onClick={() => setSelectedUser(u)}
                 >
                   <img
+<<<<<<< HEAD
                     src={u.profilePicture ? `http://localhost:5001${u.profilePicture}` : `https://ui-avatars.com/api/?name=${u.name}&background=random&rounded=true`}
+=======
+                    src={`https://ui-avatars.com/api/?name=${u.name}&background=random&rounded=true`}
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
                     alt={`${u.name}'s avatar`}
                     className="w-10 h-10 rounded-full"
                   />

@@ -14,9 +14,18 @@ const updateTask = async (req, res) => {
             task.progress = progress;
 
             if(!status){
+<<<<<<< HEAD
                 if(progress>0 && progress<=100){
                     task.status = "In Progress";
                 }
+=======
+                if(progress>0 && progress<100){
+                    task.status = "In Progress";
+                }
+                else if(progress === 100){
+                    task.status = "Completed";
+                }
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
             }
         }
 
@@ -32,6 +41,7 @@ const updateTask = async (req, res) => {
     }
 }
 
+<<<<<<< HEAD
 const submitTask = async (req, res) => {
     try {
       const { id } = req.params;
@@ -54,3 +64,6 @@ const submitTask = async (req, res) => {
   
 
 module.exports = {updateTask, submitTask};
+=======
+module.exports = {updateTask};
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee

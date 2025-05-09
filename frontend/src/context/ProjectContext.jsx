@@ -7,7 +7,10 @@ export const ProjectProvider = ({children}) => {
     const [leaders, setLeaders] = useState([]);
     const [loadingLeaders, setLoadingLeaders] = useState(true); // loading update
     const [projects, setProjects] = useState([]);
+<<<<<<< HEAD
     const [projectDetails, setProjectDetails] = useState([]);
+=======
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
     const projectAPI = "http://localhost:5001/project";
 
     // ✅ Fetch authenticated user
@@ -31,7 +34,10 @@ export const ProjectProvider = ({children}) => {
 
     // Fetch project leaders from backend
     const fetchLeaders = async () => {
+<<<<<<< HEAD
         if (leaders.length > 0) return;
+=======
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
         setLoadingLeaders(true); //// loading update
         try{
             const response = await fetch(`${projectAPI}/leaders`, {
@@ -75,6 +81,7 @@ export const ProjectProvider = ({children}) => {
         }
     }
 
+<<<<<<< HEAD
     //Fetch detailed information of a project
     const fetchDetailedProject = async (projectId) => {
         try{
@@ -97,6 +104,8 @@ export const ProjectProvider = ({children}) => {
         }
     }
 
+=======
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
     //Create new project
     const createProject = async (projectData) => {
         try {
@@ -122,6 +131,7 @@ export const ProjectProvider = ({children}) => {
         }
     };
     
+<<<<<<< HEAD
     const updateProject = async (id, updatedProject, files) => {
         try {
             const formData = new FormData();
@@ -224,9 +234,53 @@ export const ProjectProvider = ({children}) => {
     
     return( // loading update
         <ProjectContext.Provider value={{user, setUser, leaders, loadingLeaders, projects, projectDetails, fetchProjects, fetchDetailedProject, createProject, updateProject, updateProjectStatus, deleteProject}}> 
+=======
+    //edit project
+    const updateProject = async (updatedProject) => {
+        try {
+          const response = await fetch(`${projectAPI}/updateProject/${updatedProject._id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+            body: JSON.stringify(updatedProject),
+          });
+          if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || "Project update failed");
+          }
+          const data = await response.json();
+          setProjects((prevProjects) =>
+            prevProjects.map((project) => (project._id === data._id ? data : project))
+          );
+          return true;
+        } catch (error) {
+          console.error("Error updating project:", error.message);
+          return false;
+        }
+      };
+      
+    useEffect(() => {
+        const fetchData = async () => {
+            fetchLeaders(); 
+            fetchProjects();
+            await fetchUser(); // Ensure user is fetched first
+             
+        };
+    
+        fetchData();
+    }, []);
+    
+
+    return( // loading update
+        <ProjectContext.Provider value={{user, setUser, leaders, loadingLeaders, projects, fetchProjects, createProject, updateProject}}> 
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
             {children}
         </ProjectContext.Provider>
     );
 }
 
 export const useProject = () => useContext(ProjectContext);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee

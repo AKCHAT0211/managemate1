@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useProject } from "../context/ProjectContext";
+<<<<<<< HEAD
 import { useTheme } from "../context/ThemeContext";
+=======
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
 
 const EditProject = () => {
   const { id } = useParams();
@@ -9,6 +12,7 @@ const EditProject = () => {
   const { projects, updateProject } = useProject();
   const [leaders, setLeaders] = useState([]);
 
+<<<<<<< HEAD
   const [projectName, setProjectName] = useState("");
   const [description, setDescription] = useState("");
   const [deadline, setDeadline] = useState("");
@@ -58,6 +62,30 @@ const EditProject = () => {
       }
     }
   }, [id, projects]);
+=======
+  const projectToEdit = projects.find((project) => project._id === id);
+  if (!projects || projects.length === 0) {
+    return <p className="text-red-500">Loading projects...</p>;
+  }
+  if (!projectToEdit) {
+    return <p className="text-red-500">Project not found!</p>;
+  }
+
+  const [projectName, setProjectName] = useState(projectToEdit.name || "");
+  const [description, setDescription] = useState(
+    projectToEdit.description || ""
+  );
+  const [deadline, setDeadline] = useState(
+    projectToEdit.deadline
+      ? new Date(projectToEdit.deadline).toISOString().split("T")[0]
+      : ""
+  );
+  const [selectedLeader, setSelectedLeader] = useState(
+    projectToEdit.projectLeader?._id || ""
+  );
+  const [profilePhoto, setProfilePhoto] = useState(null);
+  const [success, setSuccess] = useState(false);
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
 
   useEffect(() => {
     const fetchLeaders = async () => {
@@ -66,15 +94,20 @@ const EditProject = () => {
           method: "GET",
           credentials: "include",
         });
+<<<<<<< HEAD
 
         if (!response.ok) throw new Error("Failed to fetch leaders");
 
+=======
+        if (!response.ok) throw new Error("Failed to fetch leaders");
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
         const data = await response.json();
         setLeaders(data);
       } catch (error) {
         console.error("Error fetching leaders:", error.message);
       }
     };
+<<<<<<< HEAD
 
     fetchLeaders();
   }, []);
@@ -94,18 +127,49 @@ const EditProject = () => {
 
   const removeNewFile = (index) => {
     setNewFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
+=======
+    fetchLeaders();
+  }, []);
+
+  const handlePhotoChange = (e) => {
+    setProfilePhoto(e.target.files[0]);
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const updatedProject = {
+<<<<<<< HEAD
+=======
+      ...projectToEdit,
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
       name: projectName,
       description,
       projectLeader: selectedLeader,
       deadline,
     };
 
+<<<<<<< HEAD
     const success = await updateProject(id, updatedProject, newFiles);
+=======
+    if (profilePhoto) {
+      const formData = new FormData();
+      formData.append("profilePhoto", profilePhoto);
+      formData.append("projectId", id);
+
+      try {
+        await fetch("http://localhost:5001/project/upload-photo", {
+          method: "POST",
+          body: formData,
+          credentials: "include",
+        });
+      } catch (error) {
+        console.error("Error uploading profile photo:", error);
+      }
+    }
+
+    const success = await updateProject(updatedProject);
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
     if (success) {
       setSuccess(true);
       setTimeout(() => {
@@ -116,29 +180,41 @@ const EditProject = () => {
   };
 
   return (
+<<<<<<< HEAD
     <div
       className={`p-6 max-w-lg mx-auto rounded shadow transition-colors duration-300 ${
         darkMode ? "bg-gray-800 text-white" : "bg-white text-black"
       }`}
     >
+=======
+    <div className="p-6 max-w-lg mx-auto bg-white rounded shadow">
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
       <h2 className="text-2xl font-bold mb-4">Edit Project</h2>
       {success && (
         <p className="text-green-500 mb-4">Project updated successfully!</p>
       )}
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
+<<<<<<< HEAD
           <label className="block mb-1">Project Name</label>
           <input
             type="text"
             className={`w-full p-2 border rounded ${
               darkMode ? "bg-gray-700 border-gray-600 text-white" : ""
             }`}
+=======
+          <label className="block text-gray-700">Project Name</label>
+          <input
+            type="text"
+            className="w-full p-2 border rounded"
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
             value={projectName}
             onChange={(e) => setProjectName(e.target.value)}
             required
           />
         </div>
         <div className="mb-4">
+<<<<<<< HEAD
           <label className="block mb-1">Description</label>
           <textarea
             className={`w-full p-2 border rounded ${
@@ -154,6 +230,22 @@ const EditProject = () => {
             className={`w-full p-2 border rounded ${
               darkMode ? "bg-gray-700 border-gray-600 text-white" : ""
             }`}
+=======
+          <label className="block text-gray-700">Description</label>
+          <textarea
+            className="w-full p-2 border rounded"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
+          ></textarea>
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700">
+            Assign to Project Leader
+          </label>
+          <select
+            className="w-full p-2 border rounded"
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
             value={selectedLeader}
             onChange={(e) => setSelectedLeader(e.target.value)}
             required
@@ -167,6 +259,7 @@ const EditProject = () => {
           </select>
         </div>
         <div className="mb-4">
+<<<<<<< HEAD
           <label className="block mb-1">Deadline</label>
           {/* <input
             type="date"
@@ -277,6 +370,25 @@ const EditProject = () => {
           )}
         </div>
 
+=======
+          <label className="block text-gray-700">Deadline</label>
+          <input
+            type="date"
+            className="w-full p-2 border rounded"
+            value={deadline}
+            onChange={(e) => setDeadline(e.target.value)}
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700">Update Profile Photo</label>
+          <input
+            type="file"
+            className="w-full p-2 border rounded"
+            onChange={handlePhotoChange}
+          />
+        </div>
+>>>>>>> 5dba43d42e866c91433cd7e2e7db5eeaa2f38bee
         <button
           type="submit"
           className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
